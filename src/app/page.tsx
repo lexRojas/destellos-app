@@ -2,7 +2,7 @@
 
 import { useFormStatus } from "react-dom";
 import { createCliente, State } from "./actions";
-import { useActionState, useEffect } from "react";
+import { ChangeEvent, useActionState, useEffect,  useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
@@ -11,13 +11,14 @@ const initialState: State = {
   errors: {},
   message: null,
   successfully: false,
+  idCliente: 0,
 }
 
 function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <button type="submit" aria-disabled={pending} disabled={pending} className="mt-4 w-full px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 disabled:bg-gray-400 transition-colors">
+    <button type="submit" aria-disabled={pending} disabled={pending} className="mt-4 w-full px-4 py-2 bg-[#ff81be] text-white font-semibold rounded-md hover:bg-blue-700 disabled:bg-gray-400 transition-colors">
       {pending ? "Creando..." : "Crear Cliente"}
     </button>
   );
@@ -26,29 +27,37 @@ function SubmitButton() {
 export default function Home() {
   const [state, formAction] = useActionState(createCliente, initialState);
   const navegar = useRouter();
+  const [correo, setCorreo] = useState("")
 
+
+
+  const handledChangeCorreo = (e: ChangeEvent<HTMLInputElement>) => {
+
+    setCorreo(e.target.value)
+
+  }
 
 
   useEffect(() => {
 
     if (state.successfully) {
-      navegar.push("/ruleta");
+      navegar.push(`/ruleta`);
     }
 
 
-  }, [state.successfully])
+  }, [state.successfully, navegar])
 
 
 
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-6 sm:p-12 md:p-24 bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-xl">
+      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-xl border-2 border-green-700">
         <div className="flex items-center justify-center">
           <Image src='/logo.svg' alt='Logo' width={200} height={200} />
         </div>
 
-        <h1 className="text-2xl font-bold text-center text-gray-800">Bienvenido a Destellos !
+        <h1 className="text-2xl font-bold text-center text-gray-400">Bienvenido a Destellos !
         </h1>
         <form action={formAction} className="space-y-4">
           <div>
@@ -68,6 +77,8 @@ export default function Home() {
               type="email"
               id="correo"
               name="correo"
+              value={correo}
+              onChange={handledChangeCorreo}
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />

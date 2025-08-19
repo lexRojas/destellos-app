@@ -26,6 +26,7 @@ export type State = {
   };
   message?: string | null;
   successfully?: boolean;
+  idCliente?: number;
 };
 
 export async function createCliente(prevState: State, formData: FormData) {
@@ -66,12 +67,15 @@ export async function createCliente(prevState: State, formData: FormData) {
       };
     }
 
-    await prisma.clientes.create({ data: { nombre, correo, telefono } });
+    const newCliente = await prisma.clientes.create({
+      data: { nombre, correo, telefono },
+    });
     revalidatePath("/"); // Opcional: revalida la ruta si muestras una lista de clientes.
     return {
       message: `Cliente "${nombre}" creado exitosamente.`,
       errors: {},
       successfully: true,
+      idCliente: newCliente.idCliente,
     };
   } catch (e) {
     console.error("Error al crear cliente:", e);
