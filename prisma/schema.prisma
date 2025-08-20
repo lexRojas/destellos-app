@@ -17,9 +17,9 @@ datasource db {
 
 model clientes {
   idCliente   Int                  @id @default(autoincrement())
-  correo      String
-  nombre      String
-  telefono    String
+  correo      String?
+  nombre      String?
+  telefono    String?
 
   // Relación con cliente_promociones
   cliente_promociones cliente_promociones[]

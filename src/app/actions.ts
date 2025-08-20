@@ -7,15 +7,11 @@ import { revalidatePath } from "next/cache";
 const prisma = new PrismaClient();
 
 const ClienteSchema = z.object({
-  nombre: z
-    .string()
-    .min(3, { message: "El nombre debe tener al menos 3 caracteres." }),
-  correo: z
-    .string()
-    .email({ message: "Por favor, introduce un correo electrónico válido." }),
+  nombre: z.string().min(1, { message: "El nombre es requerido." }),
+  correo: z.string(),
   telefono: z
     .string()
-    .min(7, { message: "El teléfono debe tener al menos 7 dígitos." }),
+    .min(8, { message: "El teléfono debe tener al menos 8 dígitos." }),
 });
 
 export type State = {
@@ -30,6 +26,7 @@ export type State = {
 };
 
 export async function createCliente(prevState: State, formData: FormData) {
+  console.log(formData);
   const validatedFields = ClienteSchema.safeParse(
     Object.fromEntries(formData.entries())
   );
@@ -56,12 +53,12 @@ export async function createCliente(prevState: State, formData: FormData) {
 
   try {
     const existingClient = await prisma.clientes.findFirst({
-      where: { correo },
+      where: { telefono },
     });
 
     if (existingClient) {
       return {
-        message: `El cliente con el correo ${correo} ya existe.`,
+        message: `El cliente con el telefono ${telefono} ya existe.`,
         successfully: false,
         errors: {},
       };

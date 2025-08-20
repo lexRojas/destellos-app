@@ -66,7 +66,7 @@ export default function Home() {
               type="text"
               id="nombre"
               name="nombre"
-              required
+
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
             {state?.errors?.nombre && (<span className="text-red-500 text-xs">  {state.errors.nombre} </span>)}
@@ -79,7 +79,7 @@ export default function Home() {
               name="correo"
               value={correo}
               onChange={handledChangeCorreo}
-              required
+
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
             {state?.errors?.correo && (<span className="text-red-500 text-xs">  {state.errors.correo} </span>)}
@@ -87,9 +87,12 @@ export default function Home() {
           <div>
             <label htmlFor="telefono" className="block text-sm font-medium text-gray-700">Teléfono</label>
             <input
-              type="tel"
+              type="text"
               id="telefono"
               name="telefono"
+              maxLength={8}
+              minLength={8}
+              placeholder="88889999"
               required
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
