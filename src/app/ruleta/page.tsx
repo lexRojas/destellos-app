@@ -87,7 +87,8 @@ function RuletaPage() {
                 <h1 className="text-2xl font-bold text-center text-red-400">Felicidades, puedes participar en nuestra rifa!</h1>
                 <div className="flex flex-col items-center justify-center bg-white">
                     {/* Contenedor principal */}
-                    <div className="relative w-64 h-64 flex items-center justify-center" hidden={hiddenRulet}>
+                    <div className={`relative w-64 h-64 flex items-center justify-center ${hiddenRulet ? 'hidden' : ''}`}>
+
                         <Image src="/frameRulet.svg" alt="Frame Ruleta" fill className="object-contain z-0" priority />
 
                         {/* Puntero superior */}
@@ -129,7 +130,7 @@ function RuletaPage() {
                         </p>
                     ) : (
                         <p className="mt-4 text-sm text-gray-800 text-center" >
-                            <span className="text-3xl  font-semibold"> {hiddenRulet? "Muchas Gracias!!":"Averigua tu suerte!!"}</span>
+                            <span className="text-3xl  font-semibold"> {hiddenRulet ? "Muchas Gracias!!" : "Averigua tu suerte!!"}</span>
                         </p>
                     )}
                     {participated && (
