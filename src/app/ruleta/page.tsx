@@ -84,7 +84,7 @@ function RuletaPage() {
 
         <main className="flex min-h-screen flex-col items-center justify-center p-6 sm:p-12 md:p-24 bg-gray-100">
             <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-xl">
-                <h1 className="text-2xl font-bold text-center text-red-400">Felicidades, puedes participar en nuestra rifa!</h1>
+                <h1 className="text-2xl font-bold text-center text-red-400">Felicidades, haciendo girar nuestra ruleta de la suerte!</h1>
                 <div className="flex flex-col items-center justify-center bg-white">
                     {/* Contenedor principal */}
                     <div className={`relative w-64 h-64 flex items-center justify-center ${hiddenRulet ? 'hidden' : ''}`}>
