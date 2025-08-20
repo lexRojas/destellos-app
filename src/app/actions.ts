@@ -1,10 +1,8 @@
 "use server";
 
-import { PrismaClient } from "@prisma/client";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
-
-const prisma = new PrismaClient();
+import prisma from "@/../lib/prisma";
 
 const ClienteSchema = z.object({
   nombre: z.string().min(1, { message: "El nombre es requerido." }),

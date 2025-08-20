@@ -1,8 +1,8 @@
 "use server";
 
-import { cliente_promociones, PrismaClient } from "@prisma/client";
+import { cliente_promociones } from "@prisma/client";
 
-const prisma = new PrismaClient();
+import prisma from "@/../lib/prisma";
 
 export type State = {
   message?: string | null;
