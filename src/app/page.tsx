@@ -2,7 +2,7 @@
 
 import { useFormStatus } from "react-dom";
 import { createCliente, State } from "./actions";
-import { ChangeEvent, useActionState, useEffect,  useState } from "react";
+import { ChangeEvent, useActionState, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
@@ -41,11 +41,11 @@ export default function Home() {
   useEffect(() => {
 
     if (state.successfully) {
-      navegar.push(`/ruleta`);
+      navegar.push(`/ruleta/?idCliente=${state.idCliente}&idPromocion=1`);
     }
 
 
-  }, [state.successfully, navegar])
+  }, [state.successfully, navegar, state.idCliente])
 
 
 

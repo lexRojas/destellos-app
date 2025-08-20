@@ -39,7 +39,7 @@ model promociones {
 model cliente_promociones {
   idCliente         Int
   idPromocion       Int
-  porcentajeDescuento Float
+  premio            String
 
   // Relaciones
   Cliente    clientes    @relation(fields: [idCliente], references: [idCliente])

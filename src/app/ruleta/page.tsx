@@ -2,15 +2,22 @@
 
 import { useState, } from "react";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
+import { guardarClientePromocion, verificarCliente } from "./actions";
 
 
 export default function HomePage() {
 
+    const searcParams = useSearchParams()
+
+    const idCliente = searcParams.get("idCliente")
+    const idPromocion = searcParams.get("idPromocion")
 
 
     const [angle, setAngle] = useState(0); // ángulo acumulado de la ruleta
     const [isSpinning, setIsSpinning] = useState(false);
     const [participated, setParticipated] = useState(false);
+    const [played, setPlayed] = useState(false);
     const [finalLabel, setFinalLabel] = useState<string | null>(null);
 
 
@@ -30,17 +37,33 @@ export default function HomePage() {
     const topOffsetDeg = 0;
 
     const handleSpin = () => {
+
         if (isSpinning) return;
         setFinalLabel(null);
-        setIsSpinning(true);
-        setParticipated(true);
 
-        // 4..6 vueltas completas + 0..359° aleatorio
-        const fullTurns = 360 * (4 + Math.floor(Math.random() * 3));
-        const randomOffset = Math.floor(Math.random() * 360);
-        const nextAngle = angle + fullTurns + randomOffset;
 
-        setAngle(nextAngle);
+        const proccessInfo = async () => {
+            const verificar = await verificarCliente(Number(idCliente), Number(idPromocion))
+            if (!verificar.successfully) {
+                setIsSpinning(true);
+
+            } else {
+                setIsSpinning(false)
+                setParticipated(true);
+            }
+
+        };
+        proccessInfo()
+
+        if (!participated) {
+
+            // 4..6 vueltas completas + 0..359° aleatorio
+            const fullTurns = 360 * (4 + Math.floor(Math.random() * 3));
+            const randomOffset = Math.floor(Math.random() * 360);
+            const nextAngle = angle + fullTurns + randomOffset;
+
+            setAngle(nextAngle);
+        }
     };
 
     const handleTransitionEnd = () => {
@@ -50,9 +73,19 @@ export default function HomePage() {
 
         setFinalLabel(labels[index]);
         setIsSpinning(false);
+        setPlayed(true)
 
+        const proccessInfo = async () => {
+            const verificar = await verificarCliente(Number(idCliente), Number(idPromocion))
+            if (!verificar.successfully) {
+                await guardarClientePromocion(Number(idCliente), Number(idPromocion), labels[index])
+            } else {
+                setParticipated(true);
+            }
 
-    };
+        };
+        proccessInfo()
+    }
 
     return (
         <main className="flex min-h-screen flex-col items-center justify-center p-6 sm:p-12 md:p-24 bg-gray-100">
@@ -86,7 +119,7 @@ export default function HomePage() {
                     {/* Botón */}
                     <button
                         onClick={handleSpin}
-                        disabled={isSpinning || participated}
+                        disabled={isSpinning || played}
                         className={`mt-10 px-6 py-3 text-white font-semibold rounded-lg shadow-md transition
               ${isSpinning ? "bg-gray-500 cursor-not-allowed" : "bg-rose-400 hover:bg-red-800"}`}
                         hidden={participated}
@@ -103,6 +136,9 @@ export default function HomePage() {
                         <p className="mt-4 text-sm text-gray-800">
                             <span className="font-semibold">Averigua tu suerte !</span>
                         </p>
+                    )}
+                    {participated && (
+                        <p className="mt-4 text-sm text-gray-800"> Ya usted participó anteriormente, seguro que has ganado algo, reclama tu premio por favor!</p>
                     )}
                 </div>
             </div>

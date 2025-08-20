@@ -38,13 +38,13 @@ export async function verificarCliente(idCliente: number, idPromocion: number) {
 export async function guardarClientePromocion(
   idCliente: number,
   idPromocion: number,
-  porcentaje: number
+  premio: string
 ) {
   try {
     const clientePromocion: cliente_promociones = {
       idCliente,
       idPromocion,
-      porcentajeDescuento: porcentaje,
+      premio: premio,
     };
 
     const newClientePromocion = await prisma.cliente_promociones.create({
