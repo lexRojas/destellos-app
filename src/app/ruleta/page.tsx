@@ -16,9 +16,10 @@ function RuletaPage() {
 
     const [angle, setAngle] = useState(0); // ángulo acumulado de la ruleta
     const [isSpinning, setIsSpinning] = useState(false);
+    const [finalLabel, setFinalLabel] = useState<string | null>(null);
+
     const [participated, setParticipated] = useState(false);
     const [played, setPlayed] = useState(false);
-    const [finalLabel, setFinalLabel] = useState<string | null>(null);
 
 
     // Lógica para el giro de la ruleta
@@ -40,30 +41,15 @@ function RuletaPage() {
 
         if (isSpinning) return;
         setFinalLabel(null);
+        setIsSpinning(true);
 
+        // 4..6 vueltas completas + 0..359° aleatorio
+        const fullTurns = 360 * (4 + Math.floor(Math.random() * 3));
+        const randomOffset = Math.floor(Math.random() * 360);
+        const nextAngle = angle + fullTurns + randomOffset;
 
-        const proccessInfo = async () => {
-            const verificar = await verificarCliente(Number(idCliente), Number(idPromocion))
-            if (!verificar.successfully) {
-                setIsSpinning(true);
+        setAngle(nextAngle);
 
-            } else {
-                setIsSpinning(false)
-                setParticipated(true);
-            }
-
-        };
-        proccessInfo()
-
-        if (!participated) {
-
-            // 4..6 vueltas completas + 0..359° aleatorio
-            const fullTurns = 360 * (4 + Math.floor(Math.random() * 3));
-            const randomOffset = Math.floor(Math.random() * 360);
-            const nextAngle = angle + fullTurns + randomOffset;
-
-            setAngle(nextAngle);
-        }
     };
 
     const handleTransitionEnd = () => {
@@ -129,7 +115,7 @@ function RuletaPage() {
                     </button>
 
                     {/* Resultado */}
-                    {finalLabel ? (
+                    {finalLabel && !participated? (
                         <p className="my-6 text-sm text-gray-800">
                             <span className="text-3xl font-bold animate-pulse text-rose-400">{finalLabel}</span>
                         </p>
