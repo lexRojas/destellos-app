@@ -17,9 +17,9 @@ function RuletaPage() {
     const [angle, setAngle] = useState(0); // ángulo acumulado de la ruleta
     const [isSpinning, setIsSpinning] = useState(false);
     const [finalLabel, setFinalLabel] = useState<string | null>(null);
-
+    const [hiddenRulet, sethiddenRulet] = useState(false);
     const [participated, setParticipated] = useState(false);
-    const [played, setPlayed] = useState(false);
+
 
 
     // Lógica para el giro de la ruleta
@@ -38,17 +38,22 @@ function RuletaPage() {
     const topOffsetDeg = 0;
 
     const handleSpin = () => {
+        console.log(hiddenRulet)
+        if (!hiddenRulet) {
 
-        if (isSpinning) return;
-        setFinalLabel(null);
-        setIsSpinning(true);
+            if (isSpinning) return;
+            setFinalLabel(null);
+            setIsSpinning(true);
 
-        // 4..6 vueltas completas + 0..359° aleatorio
-        const fullTurns = 360 * (4 + Math.floor(Math.random() * 3));
-        const randomOffset = Math.floor(Math.random() * 360);
-        const nextAngle = angle + fullTurns + randomOffset;
+            // 4..6 vueltas completas + 0..359° aleatorio
+            const fullTurns = 360 * (4 + Math.floor(Math.random() * 3));
+            const randomOffset = Math.floor(Math.random() * 360);
+            const nextAngle = angle + fullTurns + randomOffset;
 
-        setAngle(nextAngle);
+            setAngle(nextAngle);
+        } else {
+            sethiddenRulet(true)
+        }
 
     };
 
@@ -59,18 +64,20 @@ function RuletaPage() {
 
         setFinalLabel(labels[index]);
         setIsSpinning(false);
-        setPlayed(true)
+
 
         const proccessInfo = async () => {
             const verificar = await verificarCliente(Number(idCliente), Number(idPromocion))
             if (!verificar.successfully) {
                 await guardarClientePromocion(Number(idCliente), Number(idPromocion), labels[index])
+
             } else {
                 setParticipated(true);
             }
 
         };
         proccessInfo()
+        sethiddenRulet(true)
     }
 
     return (
@@ -80,7 +87,7 @@ function RuletaPage() {
                 <h1 className="text-2xl font-bold text-center text-red-400">Felicidades, puedes participar en nuestra rifa!</h1>
                 <div className="flex flex-col items-center justify-center bg-white">
                     {/* Contenedor principal */}
-                    <div className="relative w-64 h-64 flex items-center justify-center">
+                    <div className="relative w-64 h-64 flex items-center justify-center" hidden={hiddenRulet}>
                         <Image src="/frameRulet.svg" alt="Frame Ruleta" fill className="object-contain z-0" priority />
 
                         {/* Puntero superior */}
@@ -106,26 +113,27 @@ function RuletaPage() {
                     {/* Botón */}
                     <button
                         onClick={handleSpin}
-                        disabled={isSpinning || played}
+                        disabled={isSpinning}
+                        hidden={hiddenRulet}
                         className={`mt-10 px-6 py-3 text-white font-semibold rounded-lg shadow-md transition
               ${isSpinning ? "bg-gray-500 cursor-not-allowed" : "bg-rose-400 hover:bg-red-800"}`}
-                        hidden={participated}
+
                     >
                         GIRAR
                     </button>
 
                     {/* Resultado */}
-                    {finalLabel && !participated? (
-                        <p className="my-6 text-sm text-gray-800">
+                    {finalLabel && !participated ? (
+                        <p className="my-6 text-sm text-gray-800 text-center">
                             <span className="text-3xl font-bold animate-pulse text-rose-400">{finalLabel}</span>
                         </p>
                     ) : (
-                        <p className="mt-4 text-sm text-gray-800">
-                            <span className="font-semibold">Averigua tu suerte !</span>
+                        <p className="mt-4 text-sm text-gray-800 text-center" >
+                            <span className="text-3xl  font-semibold"> {hiddenRulet? "Muchas Gracias!!":"Averigua tu suerte!!"}</span>
                         </p>
                     )}
                     {participated && (
-                        <p className="mt-4 text-sm text-gray-800"> Ya usted participó anteriormente, seguro que has ganado algo, reclama tu premio por favor!</p>
+                        <p className="mt-4 text-sm text-gray-800 text-center"> Ya usted participó anteriormente, seguro que has ganado algo, reclama tu premio por favor!</p>
                     )}
                 </div>
             </div>
