@@ -60,7 +60,7 @@ export default function Home() {
           <Image src='/logo.svg' alt='Logo' width={200} height={200} />
         </div>
 
-        <h1 className="text-2xl font-bold text-center  text-pink-800 p-4 ">Bienvenido !
+        <h1 className="animated-gradient-text text-center  text-pink-800 p-4 ">Bienvenido !
         </h1>
         <form action={formAction} className="space-y-4">
           <div>

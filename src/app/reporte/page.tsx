@@ -23,7 +23,7 @@ export default async function ReportePage() {
             </thead>
             <tbody className="divide-y divide-red-800 bg-white text-sm text-gray-700">
               {ganadores.length > 0 ? (
-                ganadores.map((ganador, index) => (
+                ganadores.map((ganador ) => (
                   <tr key={ganador.idCliente} className="hover:bg-pink-50">
                     <td className="py-4 px-4 text-center font-medium text-gray-900 md:px-6">{ganador.idCliente}</td>
                     {/* Celda combinada para móvil */}
