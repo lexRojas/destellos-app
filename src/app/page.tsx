@@ -5,6 +5,7 @@ import { createCliente, State } from "./actions";
 import { ChangeEvent, useActionState, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { BellIcon } from "@/components/ui/BellIcon";
 
 
 const initialState: State = {
@@ -51,8 +52,10 @@ export default function Home() {
 
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-6 sm:p-12 md:p-24 bg-pink-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-xl border-2 border-red-800">
+    <main className=" fondo flex min-h-screen flex-col items-center justify-center p-6 sm:p-12 md:p-24 "
+
+    >
+      <div className=" glass3d w-full max-w-md p-8 space-y-6  rounded-lg shadow-xl border-2 border-red-800">
         <div className="flex items-center justify-center">
           <Image src='/logo.svg' alt='Logo' width={200} height={200} />
         </div>
@@ -61,13 +64,13 @@ export default function Home() {
         </h1>
         <form action={formAction} className="space-y-4">
           <div>
-            <label htmlFor="nombre" className="block text-sm font-medium text-gray-700">Nombre</label>
+            <label htmlFor="nombre" className="block text-sm font-medium text-gray-700 ">Nombre</label>
             <input
               type="text"
               id="nombre"
               name="nombre"
 
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 border bg-white  opacity-50 border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
             {state?.errors?.nombre && (<span className="text-red-500 text-xs">  {state.errors.nombre} </span>)}
           </div>
@@ -80,7 +83,7 @@ export default function Home() {
               value={correo}
               onChange={handledChangeCorreo}
 
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white  opacity-50  focus:opacity-100 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
             {state?.errors?.correo && (<span className="text-red-500 text-xs">  {state.errors.correo} </span>)}
           </div>
@@ -107,7 +110,11 @@ export default function Home() {
 
           </div>
 
+
+
         )}
+        <BellIcon />
+
       </div>
     </main>
   );
