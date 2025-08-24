@@ -57,7 +57,7 @@ export default function Home() {
     >
       <div className=" glass3d w-full max-w-md p-8 space-y-6  rounded-lg shadow-xl border-2 border-red-800">
         <div className="flex items-center justify-center">
-          <Image src='/logo.svg' alt='Logo' width={200} height={200} />
+          <Image className="logo" src='/logo.svg' alt='Logo' width={250} height={200} />
         </div>
 
         <h1 className="animated-gradient-text text-center  text-pink-800 p-4 ">Bienvenido !
@@ -70,7 +70,7 @@ export default function Home() {
               id="nombre"
               name="nombre"
 
-              className="mt-1 block w-full px-3 py-2 border bg-white  opacity-50 border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white  opacity-50  focus:opacity-100 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-600 focus:border-pink-600 sm:text-sm"
             />
             {state?.errors?.nombre && (<span className="text-red-500 text-xs">  {state.errors.nombre} </span>)}
           </div>
@@ -83,7 +83,7 @@ export default function Home() {
               value={correo}
               onChange={handledChangeCorreo}
 
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white  opacity-50  focus:opacity-100 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white  opacity-50  focus:opacity-100 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-600 focus:border-pink-600 sm:text-sm"
             />
             {state?.errors?.correo && (<span className="text-red-500 text-xs">  {state.errors.correo} </span>)}
           </div>
@@ -97,7 +97,7 @@ export default function Home() {
               minLength={8}
               placeholder="88889999"
               required
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white  opacity-50  focus:opacity-100 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-600 focus:border-pink-600 sm:text-sm"
             />
             {state?.errors?.telefono && (<span className="text-red-500 text-xs">  {state.errors.telefono} </span>)}
           </div>

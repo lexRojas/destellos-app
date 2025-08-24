@@ -1,10 +1,10 @@
 import { getGanadores } from './actions';
 
 export default async function ReportePage() {
-    const ganadores = await getGanadores();
+  const ganadores = await getGanadores();
 
-    return (
-    <main className="bg-pink-100 min-h-screen p-4 md:p-8">
+  return (
+    <main className="fondo min-h-screen p-4 md:p-8">
       <div className="container mx-auto">
         <h1 className="text-3xl font-bold mb-6 text-center bg-pink-800 text-white p-4 rounded-lg shadow-md">LISTA DE GANADORES</h1>
         <div className="overflow-x-auto shadow-md rounded-lg border-2 border-red-800">
@@ -23,7 +23,7 @@ export default async function ReportePage() {
             </thead>
             <tbody className="divide-y divide-red-800 bg-white text-sm text-gray-700">
               {ganadores.length > 0 ? (
-                ganadores.map((ganador ) => (
+                ganadores.map((ganador) => (
                   <tr key={ganador.idCliente} className="hover:bg-pink-50">
                     <td className="py-4 px-4 text-center font-medium text-gray-900 md:px-6">{ganador.idCliente}</td>
                     {/* Celda combinada para móvil */}
@@ -52,4 +52,3 @@ export default async function ReportePage() {
     </main>
   );
 }
-               

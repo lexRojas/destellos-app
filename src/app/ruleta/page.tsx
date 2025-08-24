@@ -84,7 +84,7 @@ function RuletaPage() {
 
         <main className="fondo flex min-h-screen flex-col items-center justify-center p-6 sm:p-12 md:p-24 ">
             <div className="glass3d w-full max-w-md p-8 space-y-6  rounded-lg shadow-xl border-2 border-red-800">
-                <h1 className="animated-gradient-text  font-bold text-center bg-pink-800  p-4 rounded-lg shadow-md">¡Felicidades, gira nuestra ruleta de la suerte!</h1>
+                <h1 className="animated-gradient-text  font-bold text-center bg-pink-800  p-4 ">¡Felicidades, gira nuestra ruleta de la suerte!</h1>
                 <div className="flex flex-col items-center justify-center ">
                     {/* Contenedor principal */}
                     <div className={`relative w-64 h-64 flex items-center justify-center ${hiddenRulet ? 'hidden' : ''}`}>
@@ -126,11 +126,11 @@ function RuletaPage() {
                     {/* Resultado */}
                     {finalLabel && !participated ? (
                         <p className="my-6 text-sm text-gray-800 text-center">
-                            <span className="text-3xl font-bold animate-pulse text-rose-400">{finalLabel}</span>
+                            <span className="text-3xl font-bold animate-ping text-rose-400">{finalLabel}</span>
                         </p>
                     ) : (
                         <p className="mt-4 text-sm text-gray-800 text-center" >
-                            <span className="text-3xl  font-semibold"> {hiddenRulet ? "Muchas Gracias!!" : "Averigua tu suerte!!"}</span>
+                            <span className="text-3xl  font-semibold"> {hiddenRulet ? "Muchas Gracias!!" : ""}</span>
                         </p>
                     )}
                     {participated && (
